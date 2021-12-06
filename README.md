@@ -5,7 +5,7 @@
  本项目旨在实时获取和提炼A-Soul成员直播相关信息并推送至Telegram机器人，如：  
   + 成员开播提醒  
   + 包括弹幕数量、观看人数的实时同接信息
-  + 筛选过的重复次数较高的弹幕信息
+  + 自动筛选推送重复次数较高的弹幕信息
   + SC信息
   + ~~待定~~  
 
@@ -15,7 +15,10 @@
 | --- | --- | --- | --- | --- | --- | 
 |    |  ![](https://i0.hdslb.com/bfs/face/566078c52b408571d8ae5e3bcdf57b2283024c27.jpg)   |    ![](https://i2.hdslb.com/bfs/face/668af440f8a8065743d3fa79cfa8f017905d0065.jpg) |  ![](https://i2.hdslb.com/bfs/face/a7fea00016a8d3ffb015b6ed8647cc3ed89cbc63.jpg)  |   ![](https://i2.hdslb.com/bfs/face/d399d6f5cf7943a996ae96999ba3e6ae2a2988de.jpg)  |     ![](https://i1.hdslb.com/bfs/face/8895c87082beba1355ea4bc7f91f2786ef49e354.jpg)|  
 
-项目于2021年12月6日16:02立项，无确切完成时间  
+
+  
+
+项目于2021年12月6日16:02立项  
 
 ## Upstream:  
 [ASOUL直播间弹幕抓取&&数据分析](https://github.com/Code4Epoch/Bolaris)  
