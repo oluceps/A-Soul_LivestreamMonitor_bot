@@ -1,19 +1,23 @@
 import os
 import posix
-
+import asyncio
 from bilibili_api import live, sync
 from os import popen
 
 
-Dianaroom = live.LiveDanmaku(22637261)
+def room(roomnum):
+    return live.LiveDanmaku(roomnum)
 
-Avaroom = live.LiveDanmaku(22625025)
+class Asoul(object):
+    def __init__(self,room,uid):
+        self.room = room
+class Diana(Asoul):
+    self.Diana.room = room(22637261)
+    self.Ava.room = room(22625025)
+    self.Queen.room = room(22625027)
+    self.Kira.room = room(22632424)
+    self.Carol.room = room(22634198)
 
-Queenroom = live.LiveDanmaku(22625027)
-
-Kiraroom = live.LiveDanmaku(22632424)
-
-Carolroom = live.LiveDanmaku(22634198)
 
 UID = {
 
@@ -29,7 +33,7 @@ UID = {
 
 }
 
-roomlist = [Dianaroom,Avaroom,Queenroom,Kiraroom,Carolroom]
+roomlist = [Asoul.Diana.room,Avaroom,Queenroom,Kiraroom,Carolroom]
 
 def main():
     # detect the liveroom pushstream statues
