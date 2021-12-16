@@ -8,9 +8,9 @@ from os import popen
 
 class Asoul(object):
     def __init__(self,roomnum,uid):
-        self.roomnum
-        self.uid
-    def  getbullet(roomnun):
+        self.roomnum = roomnum
+        self.uid = uid
+    def  get_bullet(self,roomnun):
         room = live.LiveDanmaku(roomnun)
 
         @room.on('DANMU_MSG')
@@ -20,24 +20,11 @@ class Asoul(object):
 
         sync(room.connect())
 
-
-class Diana(Asoul):
-    Asoul.roomnum = 22637261
-    Asoul.uid  = 672328094
-class Ava(Asoul):
-    Asoul.roomnum = 22625025
-    Asoul.uid = 672346917
-class Queen(Asoul):
-    Asoul.roomnum = 22625027
-    Asoul.uid = 672342685
-
-class Kira(Asoul):
-    Asoul.roomnum = 22632424
-    Asoul.uid = 672353429
-class Carol(Asoul):
-    Asoul.roomnum = 22634198
-    Asoul.uid = 351609538
-
+Diana = Asoul(22637261,672328094)
+Ava   = Asoul(22625025,672346917)
+Queen = Asoul(22625027,672342685)
+Kira  = Asoul(22632424,672353429)
+Carol = Asoul(22634198,351609538)
 
 def main():
     # detect the liveroom pushstream statues
