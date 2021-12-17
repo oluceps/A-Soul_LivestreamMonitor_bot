@@ -30,7 +30,23 @@ class Asoul(object):
         @room.on('DANMU_MSG')
         async def on_danmaku(event):
             # 收到弹幕
-            print(event)
+            # process the dic
+            def recursive_lookup(k):
+                if k in event:
+                    return event[k]
+                for v in event.values():
+                    if isinstance(v, dict):
+                        return recursive_lookup(k)
+                return None
+# stack overflow Fuck!
+            print(recursive_lookup("content"))
+            #danmu_pure = event["data"]["info"]#["extra"]["content"]
+            #print(type(event))
+            print(type(event))
+            print(event.values())
+            #print(danmu_pure)
+            #print(danmu_pure)
+
 
         sync(room.connect())
 
@@ -44,6 +60,7 @@ def main():
     judge = Diana.get_livestatus(672328094)
     if judge == 2:
        print("streaming")
+       Diana.get_bullet(Diana.roomnum)
     else:
         print("pass")
 
