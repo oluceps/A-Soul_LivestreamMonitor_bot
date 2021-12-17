@@ -1,6 +1,7 @@
 import os
-import posix
 import asyncio
+import requests
+import json
 from bilibili_api import live, sync
 from os import popen
 
@@ -10,6 +11,19 @@ class Asoul(object):
     def __init__(self,roomnum,uid):
         self.roomnum = roomnum
         self.uid = uid
+
+
+    def get_livestatus(self,uid):
+        url = 'https://api.live.bilibili.com/room/v1/Room/get_status_info_by_uids'
+        header = {'Content-Type': 'application/json'}
+        middle = {'uids': [uid]}
+        payload = json.dumps(middle)
+        r = requests.post(url, data=payload, headers=header)
+        dict = r.json()
+        statusvalue = dict["data"][str(uid)]['live_status']
+        return statusvalue
+
+
     def  get_bullet(self,roomnun):
         room = live.LiveDanmaku(roomnun)
 
@@ -27,17 +41,11 @@ Kira  = Asoul(22632424,672353429)
 Carol = Asoul(22634198,351609538)
 
 def main():
-    # detect the liveroom pushstream statues
-    for memberuid in UID:
-
-        os.popen('curl -G \'http://api.live.bilibili.com/room/v1/Room/getRoomInfoOld\' \
---data-urlencode \'mid="+ memberuid +""\'')
-
-        print(posix.read())
-        # judge the status:
-        # json analysis replace by T:
-        if True:
-            Diana.getbullet()
+    judge = Diana.get_livestatus(672328094)
+    if judge == 2:
+       print("streaming")
+    else:
+        print("pass")
 
 
 if __name__=='__main__':
