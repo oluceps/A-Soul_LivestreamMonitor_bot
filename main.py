@@ -35,35 +35,20 @@ class Asoul(object):
             # process the dic
             key_list = []
 
+            def recursive_get_value(data,key_to_find):
+               if key_to_find in data:
+                    return data[key_to_find]
+
+               for v in data.values():
+                   if isinstance(v, dict):
+                       return recursive_get_value(v, key_to_find)
+               return None
 
 
-            def recursive_get_value(data,KeyToFind):
-                for compkey in data.keys():
-                    print(key_list)
-                    if isinstance(data[compkey],dict):
-                        key_list.append(compkey)
-                        if data[compkey] == KeyToFind:
-                            return data[compkey]
-                        else:
-                            recursive_get_value(data[compkey], KeyToFind)
-
-
-            print(recursive_get_value(event,"content"))
-
-
-
-
-
-            #danmu_pure = event["data"]["info"]#["extra"]["content"]
-            #print(type(event))
-            #print(type(event))
-            #print(event.values())
-            #print(danmu_pure)
-            #print(danmu_pure)
+            midv = (recursive_get_value(event,'info')[0][15])
+            print(json.loads(midv['extra'])["content"])
 
         sync(room.connect())
-
-
 
 Diana = Asoul(22637261,672328094)
 Ava   = Asoul(22625025,672346917)
