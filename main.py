@@ -33,8 +33,6 @@ class Asoul(object):
         async def on_danmaku(event):
             # 收到弹幕
             # process the dic
-            key_list = []
-
             def recursive_get_value(data,key_to_find):
                if key_to_find in data:
                     return data[key_to_find]
@@ -43,7 +41,6 @@ class Asoul(object):
                    if isinstance(v, dict):
                        return recursive_get_value(v, key_to_find)
                return None
-
 
             midv = (recursive_get_value(event,'info')[0][15])
             print(json.loads(midv['extra'])["content"])
@@ -57,14 +54,19 @@ Kira  = Asoul(22632424,672353429)
 Carol = Asoul(22634198,351609538)
 
 def main():
-    judge = Diana.get_livestatus(672328094)
-    if judge == 2:
-       print("streaming")
-       Diana.get_bullet(Diana.roomnum)
+    Members = ['Diana','Ava','Queen','Kira','Carol']
+    for member in Members:
+        judge = member.get_livestatus(member.uid)
+        if judge == 1:
+            print("streaming")
+            member.get_bullet(member.roomnum)
+            yield
 
 
-    else:
-        print("pass")
+        else:
+            print("pass")
+
+
 
 
 if __name__=='__main__':
