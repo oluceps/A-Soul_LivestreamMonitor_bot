@@ -28,27 +28,42 @@ class Asoul(object):
         room = live.LiveDanmaku(roomnun)
 
         @room.on('DANMU_MSG')
+
+
         async def on_danmaku(event):
             # 收到弹幕
             # process the dic
-            def recursive_lookup(k):
-                if k in event:
-                    return event[k]
-                for v in event.values():
-                    if isinstance(v, dict):
-                        return recursive_lookup(k)
-                return None
-# stack overflow Fuck!
-            print(recursive_lookup("content"))
+            key_list = []
+
+
+
+            def recursive_get_value(data,KeyToFind):
+                for compkey in data.keys():
+                    print(key_list)
+                    if isinstance(data[compkey],dict):
+                        key_list.append(compkey)
+                        if data[compkey] == KeyToFind:
+                            return data[compkey]
+                        else:
+                            recursive_get_value(data[compkey], KeyToFind)
+
+
+            print(recursive_get_value(event,"content"))
+
+
+
+
+
             #danmu_pure = event["data"]["info"]#["extra"]["content"]
             #print(type(event))
-            print(type(event))
-            print(event.values())
+            #print(type(event))
+            #print(event.values())
             #print(danmu_pure)
             #print(danmu_pure)
-
 
         sync(room.connect())
+
+
 
 Diana = Asoul(22637261,672328094)
 Ava   = Asoul(22625025,672346917)
@@ -61,6 +76,8 @@ def main():
     if judge == 2:
        print("streaming")
        Diana.get_bullet(Diana.roomnum)
+
+
     else:
         print("pass")
 
