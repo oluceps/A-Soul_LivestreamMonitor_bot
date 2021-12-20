@@ -1,9 +1,7 @@
-import os
 import asyncio
 import requests
 import json
 from bilibili_api import live, sync
-from os import popen
 
 
 
