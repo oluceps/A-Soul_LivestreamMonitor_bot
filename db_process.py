@@ -1,6 +1,5 @@
 import pymongo
 
-
 class liveinfo_db(object):
     def __init__(self,username,content,repeat_count):
         db_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")

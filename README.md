@@ -18,7 +18,7 @@
 
   
 
-项目于2021年12月6日16:02立项  
+2021年12月6日16:02立项  
 
 ## Upstream:  
 [ASOUL直播间弹幕抓取&&数据分析](https://github.com/Code4Epoch/Bolaris)  
