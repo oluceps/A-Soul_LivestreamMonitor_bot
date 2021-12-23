@@ -52,13 +52,12 @@ Kira  = Asoul(22632424,672353429)
 Carol = Asoul(22634198,351609538)
 
 def main():
-    Members = ['Diana','Ava','Queen','Kira','Carol']
+    Members = [Diana,Ava,Queen,Kira,Carol]
     for member in Members:
         judge = member.get_livestatus(member.uid)
         if judge == 1:
             print("streaming")
             member.get_bullet(member.roomnum)
-            yield
 
 
         else:
