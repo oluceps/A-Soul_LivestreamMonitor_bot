@@ -19,7 +19,8 @@ class Asoul(object):
         r = requests.post(url, data=payload, headers=header)
         dict = r.json()
         statusvalue = dict["data"][str(uid)]['live_status']
-        return statusvalue
+        if statusvalue == 1:
+            return True
 
 
     def  get_bullet(self,roomnun):
@@ -55,13 +56,14 @@ def main():
     Members = [Diana,Ava,Queen,Kira,Carol]
     for member in Members:
         judge = member.get_livestatus(member.uid)
-        if judge == 1:
+        while judge is True:
             print("streaming")
             member.get_bullet(member.roomnum)
 
 
-        else:
-            print("pass")
+
+
+
 
 
 
