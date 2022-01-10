@@ -2,6 +2,7 @@ import asyncio
 import requests
 import json
 from bilibili_api import live, sync
+import db_process
 
 
 
@@ -19,7 +20,7 @@ class Asoul(object):
         r = requests.post(url, data=payload, headers=header)
         dict = r.json()
         statusvalue = dict["data"][str(uid)]['live_status']
-        if statusvalue == 1:
+        if statusvalue == 2:
             return True
 
 
@@ -41,9 +42,17 @@ class Asoul(object):
                        return recursive_get_value(v, key_to_find)
                return None
 
-            midv = (recursive_get_value(event,'info')[0][15])
-            print(json.loads(midv['extra'])["content"])
+            username = recursive_get_value(event,'info')[2][1]
+            content = json.loads(recursive_get_value(event,'info')[0][15]['extra'])["content"]
+            uid = recursive_get_value(event,'info')[2][0]
+            try:
+                plaque = f"{recursive_get_value(event, 'info')[3][1]}" \
+                         f"{recursive_get_value(event, 'info')[3][0]}"
+            except IndexError:
+                plaque = None
 
+
+            print(f"{uid} {plaque} {username}:  {content}")
         sync(room.connect())
 
 Diana = Asoul(22637261,672328094)
