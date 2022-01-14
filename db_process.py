@@ -2,11 +2,11 @@ import toml
 import pymongo
 
 authinfo = toml.load("./db_auth.toml")["userme"]
-db_client: MongoClient = pymongo.MongoClient("mongodb://127.0.0.1:27017/",
-                                             username=authinfo["username"],
-                                             password=authinfo["password"],
-                                             authSource=authinfo["authSource"],
-                                             authMechanism=authinfo["authMechanism"])
+db_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/",
+                                username=authinfo["username"],
+                                password=authinfo["password"],
+                                authSource=authinfo["authSource"],
+                                authMechanism=authinfo["authMechanism"])
 
 
 class liveinfo_process(object):
