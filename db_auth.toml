@@ -1,0 +1,6 @@
+title = "mongodb authentication infomation"
+[userme]
+username = "rito"
+password = "299792"
+authSource = 'admin'
+authMechanism = 'SCRAM-SHA-256'
