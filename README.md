@@ -26,5 +26,4 @@
 [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)  
 [bilibili-api](https://github.com/MoyuScript/bilibili-api)
 
-感谢Telegram群组 [ASoul温暖大家庭](https://t.me/ASoul_WarmFamily)的支持  
 
