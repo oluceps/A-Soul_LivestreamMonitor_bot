@@ -4,7 +4,7 @@ import json
 from bilibili_api import live, sync
 import db_process
 
-
+global val
 class Asoul(object):
     def __init__(self, roomnum, uid):
         self.roomnum = roomnum
@@ -41,12 +41,14 @@ class Asoul(object):
             content = json.loads(recursive_get_value(event, 'info')[0][15]['extra'])["content"]
             uid = recursive_get_value(event, 'info')[2][0]
             try:
-                plaque = f"{recursive_get_value(event, 'info')[3][1]}" \
+                plague = f"{recursive_get_value(event, 'info')[3][1]}" \
                          f"{recursive_get_value(event, 'info')[3][0]}"
             except IndexError:
-                plaque = None
+                plague = None
+            print(f"{uid},{username},{content},{plague}")
+            val = f"{username}, {content}, {plague}, {uid}"
+            return val
 
-            print(f"{uid} {plaque} {username}:  {content}")
 
         sync(room.connect())
 
@@ -62,9 +64,18 @@ def main():
     Members = [Diana, Ava, Queen, Kira, Carol]
     for member in Members:
         judge = member.get_livestatus(member.uid)
-        while judge is True:
-            print("streaming")
-            member.get_bullet(member.roomnum)
+        if db_process.check_database() is True:
+            while judge is True:
+
+                print("streaming")
+                #db_process.insert("a", "a", "s", "a", "s")
+                print("writesuc")
+
+        else:
+            print("error")
+
+
+
 
 
 if __name__ == '__main__':

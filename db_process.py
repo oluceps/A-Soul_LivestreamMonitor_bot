@@ -9,28 +9,27 @@ db_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/",
                                 authMechanism=authinfo["authMechanism"])
 
 
-class liveinfo_process(object):
+def check_database():
+    print(f"Databases: {db_client.list_database_names()}")
 
-    def __init__(self, username, content, plague, uid, repeat_count):
-        pass
-
-    #        dbuser = urllib.parse.quote_plus(str(input("username of local db: ")))
-    #        dbpasswd = urllib.parse.quote_plus(str(input("password: ")))
-    def check_database(self):
-
-        if "liveinfo" in db_client.list_database_names():
-            print("Database has exist, check collection: ")
-            if "danmuinfo" in db_client.list_collection_names():
-                print("collection has exist")
-
+    if "liveinfo" in db_client.list_database_names():
+        print("Database has exist, check collection: ")
+        print(db_client["liveinfo"].list_collection_names())
+        if "danmu" in db_client["liveinfo"].list_collection_names():
+            print("collection has exist")
+            return True
         else:
-            temp_danmu_db = db_client["liveinfo"]
-            temp_danmu_col = temp_danmu_db["danmuinfo"]
+            pass
 
-    def insert(self, username, content, plague, uid, repeat_count):
-        formatodict = {"uid": f"{uid}",
-                       "username": f"{username}",
-                       "content": f"{content}",
-                       "plague": f"{plague}",
-                       "repeat_count": f"{repeat_count}"}
-        db_client["liveinfo"]["danmuinfo"].insert_one(formatodict)
+
+def insert(username, content, plague, uid, repeat_count):
+    formatodict = {"uid": f"{uid}",
+                   "username": f"{username}",
+                   "content": f"{content}",
+                   "plague": f"{plague}",
+                   "repeat_count": f"{repeat_count}"}
+    db_client["liveinfo"]["danmu"].insert_one(formatodict)
+    print("insert success")
+
+
+
