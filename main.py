@@ -5,6 +5,8 @@ from bilibili_api import live, sync
 import db_process
 
 global val
+
+
 class Asoul(object):
     def __init__(self, roomnum, uid):
         self.roomnum = roomnum
@@ -16,12 +18,13 @@ class Asoul(object):
         middle = {'uids': [uid]}
         payload = json.dumps(middle)
         r = requests.post(url, data=payload, headers=header)
-        dict = r.json()
-        statusvalue = dict["data"][str(uid)]['live_status']
+        midict = r.json()
+        statusvalue = midict["data"][str(uid)]['live_status']
         if statusvalue == 2:
             return True
 
     def get_bullet(self, roomnun):
+
         room = live.LiveDanmaku(roomnun)
 
         @room.on('DANMU_MSG')
@@ -49,8 +52,9 @@ class Asoul(object):
             val = f"{username}, {content}, {plague}, {uid}"
             return val
 
-
         sync(room.connect())
+        return on_danmaku
+
 
 
 Diana = Asoul(22637261, 672328094)
@@ -66,16 +70,13 @@ def main():
         judge = member.get_livestatus(member.uid)
         if db_process.check_database() is True:
             while judge is True:
+                # print("streaming")
+                # db_process.insert("a", "a", "s", "a", "s")
+                print(member.get_bullet(member.roomnum)())
 
-                print("streaming")
-                #db_process.insert("a", "a", "s", "a", "s")
-                print("writesuc")
 
         else:
             print("error")
-
-
-
 
 
 if __name__ == '__main__':
