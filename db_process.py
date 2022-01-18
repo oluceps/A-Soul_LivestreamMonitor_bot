@@ -22,12 +22,13 @@ def check_database():
             pass
 
 
-def insert(username, content, plague, uid, repeat_count):
-    formatodict = {"uid": f"{uid}",
-                   "username": f"{username}",
-                   "content": f"{content}",
-                   "plague": f"{plague}",
-                   "repeat_count": f"{repeat_count}"}
+def insert(*args):
+    formatodict = {"uid": args[3],
+                   "username": args[0],
+                   "content": args[1],
+                   "plague": args[2],
+                   "sendtime": args[4],
+                   "repeat_count": None}
     db_client["liveinfo"]["danmu"].insert_one(formatodict)
     print("insert success")
 

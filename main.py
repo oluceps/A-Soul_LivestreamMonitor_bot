@@ -1,10 +1,8 @@
-import asyncio
 import requests
 import json
 from bilibili_api import live, sync
 import db_process
-
-global val
+import time
 
 
 class Asoul(object):
@@ -31,6 +29,7 @@ class Asoul(object):
         async def on_danmaku(event):
             # 收到弹幕
             # process the dic
+
             def recursive_get_value(data, key_to_find):
                 if key_to_find in data:
                     return data[key_to_find]
@@ -40,20 +39,24 @@ class Asoul(object):
                         return recursive_get_value(v, key_to_find)
                 return None
 
-            username = recursive_get_value(event, 'info')[2][1]
-            content = json.loads(recursive_get_value(event, 'info')[0][15]['extra'])["content"]
-            uid = recursive_get_value(event, 'info')[2][0]
+            feedback_value = recursive_get_value(event, 'info')
+            username = feedback_value[2][1]
+            content = json.loads(feedback_value[0][15]['extra'])["content"]
+            uid = feedback_value[2][0]
+            sendtime = feedback_value[0][5]
             try:
-                plague = f"{recursive_get_value(event, 'info')[3][1]}" \
-                         f"{recursive_get_value(event, 'info')[3][0]}"
+                plague = f"{feedback_value[3][1]}" \
+                         f"{feedback_value[3][0]}"
             except IndexError:
                 plague = None
-            print(f"{uid},{username},{content},{plague}")
-            val = f"{username}, {content}, {plague}, {uid}"
-            return val
+            val = f"{username},{content},{plague},{uid},{sendtime}"
+            print(val)
+
+            #print(event)
+            db_process.insert(username,content,plague,uid,sendtime)
+
 
         sync(room.connect())
-        return on_danmaku
 
 
 
@@ -71,8 +74,13 @@ def main():
         if db_process.check_database() is True:
             while judge is True:
                 # print("streaming")
-                # db_process.insert("a", "a", "s", "a", "s")
-                print(member.get_bullet(member.roomnum)())
+
+                #sync(room.connect())
+
+
+
+                print(member.get_bullet(member.roomnum))
+                # db_process.insert(member.get_bullet(member.roomnum)())
 
 
         else:
@@ -80,4 +88,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("exit.")
