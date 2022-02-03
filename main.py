@@ -2,7 +2,6 @@ import requests
 import json
 from bilibili_api import live, sync
 import db_process
-import time
 
 
 class Asoul(object):

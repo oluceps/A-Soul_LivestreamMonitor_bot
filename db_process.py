@@ -1,7 +1,7 @@
 import toml
 import pymongo
 
-authinfo = toml.load("./db_auth.toml")["userme"]
+authinfo = toml.load("./config.toml")["userme"]
 db_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/",
                                 username=authinfo["username"],
                                 password=authinfo["password"],
