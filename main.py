@@ -17,7 +17,7 @@ class Asoul(object):
         r = requests.post(url, data=payload, headers=header)
         midict = r.json()
         statusvalue = midict["data"][str(uid)]['live_status']
-        if statusvalue == 2:
+        if statusvalue == 1:
             return True
 
     def get_bullet(self, roomnun):
